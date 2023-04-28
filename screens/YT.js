@@ -18,12 +18,13 @@ const YT=()=>{
 	
 	const [id,setID]=React.useState('')
 	const [url,setURL]=React.useState('')
-	const [err,setErr]=React.useState('')
+	const [err,setErr]=React.useState(0)
 	
 	const getID=()=>{
 		if(url.length==0)
 			return
 		else{
+			setErr(0)
 			let index=url.lastIndexOf('=')
 			if(index<0)
 			   index=url.lastIndexOf('/')
@@ -33,13 +34,15 @@ const YT=()=>{
 	const clearFields=()=>{
 		setURL('')
 		setID('')
-		setErr('')}
+		setErr(0)}
 	
        const handleShare=(item)=>{
-       	const {data}=item   
-       	setURL(data)
+       	if(item){
+	   const {data}=item   
+	   setURL(data)
 	console.log("URL "+url)
        	getID()}
+       }
 
 	React.useEffect(() => {
     		ShareMenu.getInitialShare(handleShare)
